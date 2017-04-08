@@ -13,9 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import static abc.moodanalysis.R.id.radioButton;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    EditText x;
+    RadioButton y;
+    RadioGroup z;
+    String a,b;
+    Button aa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +34,30 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        aa=(Button)findViewById(R.id.button);
 
+        aa.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                x=(EditText)findViewById(R.id.editText);
+
+                z = (RadioGroup) findViewById(R.id.rgi);
+
+                // get selected radio button from radioGroup
+                int selectedId = z.getCheckedRadioButtonId();
+
+                // find the radiobutton by returned id
+                y = (RadioButton) findViewById(selectedId);
+                a=x.getText().toString();
+                b=(String) y.getText().toString();
+                Intent i =new Intent(getBaseContext(),Main2Activity.class);
+                i.putExtra("gender",b);
+                i.putExtra("age",a);
+                startActivity(i);
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -34,11 +68,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-   public void gotonext(View v){
-       Intent i =new Intent(this,Main2Activity.class);
-       startActivity(i);
 
-    }
 
     @Override
     public void onBackPressed() {
@@ -79,10 +109,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            Intent i =new Intent(this,PostEventsActivity.class);
+            startActivity(i);
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            Intent i =new Intent(this,EventsActivity.class);
+            startActivity(i);
+
 
         } else if (id == R.id.nav_slideshow) {
+            Intent i =new Intent(this,BlogsActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_manage) {
 
